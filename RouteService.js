@@ -1,7 +1,7 @@
 import Route from "./Route.js";
 
 class RouteService {
-    async create (routeData) {
+    async create (routeData, picture) {
         const route = await Route.create(routeData)
         return route
     };

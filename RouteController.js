@@ -1,11 +1,15 @@
 import Route from "./Route.js";
 import RouteService from "./RouteService.js";
-import routeService from "./RouteService.js";
+import FileService from "./FileService.js";
+
+
 
 class RouteController {
    async create (req, res) {
        try {
-           const route = await RouteService.create(req.body)
+            console.log('req', req.file);
+           //const pictureName = FileService.add(req.file);
+           const route = await RouteService.create({...req.body, image:req.file.filename} )
            res.json(route);
        }catch (e) {
            res.status(500).json(e)
@@ -41,7 +45,7 @@ async delete (req, res) {
 }
 async getById (req, res) {
     try {
-        const route = await routeService.getById(req.params.id);
+        const route = await RouteService.getById(req.params.id);
         res.json(route);
     }catch(e){
         res.status(500).json(e.message)
