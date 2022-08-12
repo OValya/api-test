@@ -7,7 +7,7 @@ const DB_URL = 'mongodb://localhost:27017/test'
 import routeRouter from "./routing.js";
 
 
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
@@ -17,7 +17,7 @@ app.use(express.static('static'))
 
 async function startApp(){
         await mongoose.connect(DB_URL).catch((e) => console.log(e));
-        app.listen(port, () => console.log('server started on localhost: '+ port))
+        app.listen(port, () => console.log('server started on localhost: '+ PORT))
 }
 
 startApp();
