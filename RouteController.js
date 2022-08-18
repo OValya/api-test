@@ -1,15 +1,18 @@
 import Route from "./Route.js";
 import RouteService from "./RouteService.js";
 import FileService from "./FileService.js";
+import * as fs from "fs/promises";
 
 
 
 class RouteController {
    async create (req, res) {
        try {
-            console.log('req', req.file);
-           //const pictureName = FileService.add(req.file);
-           const route = await RouteService.create({...req.body, image:req.file.filename} )
+           // console.log('req', req.file);
+           const pictureName = await FileService.add(req.file.path);
+           //const route = await RouteService.create({...req.body, image:req.file.filename} )
+           const route = await RouteService.create({...req.body, image:pictureName} )
+           fs.unlink(req.file.path)
            res.json(route);
        }catch (e) {
            res.status(500).json(e)

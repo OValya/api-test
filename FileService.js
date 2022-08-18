@@ -1,7 +1,8 @@
+import { v2 as cloudinary } from 'cloudinary'
 class FileService{
-    add(file){
-
-
+    async add(file){
+        const result = await cloudinary.uploader.upload(file);
+        return result.secure_url;
     }
 }
 
