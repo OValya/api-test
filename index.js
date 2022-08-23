@@ -9,7 +9,7 @@ dotenv.config({
 import { v2 as cloudinary } from 'cloudinary'
 
 const MONGO_CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING;
-const PORT = 5000;//process.env.PORT;
+const PORT = process.env.PORT;
 const app = express();
 if (typeof (process.env.CLOUDINARY_URL) === 'undefined') {
         console.warn('!! cloudinary config is undefined !!');
@@ -22,23 +22,6 @@ if (typeof (process.env.CLOUDINARY_URL) === 'undefined') {
 app.use(express.json());
 app.use('/api', routeRouter);
 app.use(express.static('static'))
-//Cors Configuration - Start
-app.use((req, res) => {
-        res.header("Access-Control-Allow-Origin", "*")
-        res.header(
-            "Access-Control-Allow-Headers",
-            "Origin, X-Requested, Content-Type, Accept Authorization"
-        )
-        if (req.method === "OPTIONS") {
-                res.header(
-                    "Access-Control-Allow-Methods",
-                    "POST, PUT, PATCH, GET, DELETE"
-                )
-                return res.status(200).json({})
-        }
-
-})
-//Cors Configuration - End
 
 async function startApp(){
         await mongoose.connect(MONGO_CONNECTION_STRING).catch((e) => console.log(e));

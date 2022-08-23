@@ -12,7 +12,7 @@ class RouteController {
            const pictureName = await FileService.add(req.file.path);
            //const route = await RouteService.create({...req.body, image:req.file.filename} )
            const route = await RouteService.create({...req.body, image:pictureName} )
-           fs.unlink(req.file.path)
+           await fs.unlink(req.file.path)
            res.json(route);
        }catch (e) {
            res.status(500).json(e)
